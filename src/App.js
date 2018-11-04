@@ -8,7 +8,9 @@ class App extends Component {
       { name: 'Nick', age: 36 },
       { name: 'Alexis', age: 34 },
       { name: 'Lisa', age: 39 }
-    ]
+    ],
+    otherState: 'some other value',
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -34,6 +36,11 @@ class App extends Component {
 
   }
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow})
+  }
+
   render() {
 
     const style = {
@@ -42,32 +49,54 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      margin: '16px'
     }
 
     return (
       <div className="App">
+
         <h1>This is a test!</h1>
         <p>this is really working</p>
         {/* <button onClick={this.switchNameHandler.bind(this, "Sam")}>Switch Name</button> */}
+        
         <button 
           style={style}
-          onClick={() => this.switchNameHandler("Mark")}>Switch Name</button>
+          onClick={() => this.switchNameHandler("Mark")}>Switch Name
+        </button>
 
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age}>My hobby is art
-        </Person>
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          change={this.nameChangeHandler}>My hobby is art
-        </Person>
-        <Person
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age}
-          click={this.switchNameHandler.bind(this, "Samuel!")}>My hobby is art
-        </Person>
+        <button
+          style={style}
+          onClick={() => this.togglePersonsHandler()}>Toggle Name
+        </button>
+
+       {/* >>>>>>> PERSONS <<<<<<< */}
+
+        {/* cant use if statement below */}
+
+        {this.state.showPersons ? 
+          <div>
+
+            <Person 
+              name={this.state.persons[0].name} 
+              age={this.state.persons[0].age}>My hobby is art
+            </Person>
+            
+            <Person 
+              name={this.state.persons[1].name} 
+              age={this.state.persons[1].age}
+              change={this.nameChangeHandler}>My hobby is art
+            </Person>
+            
+            <Person
+              name={this.state.persons[2].name} 
+              age={this.state.persons[2].age}
+              click={this.switchNameHandler.bind(this, "Samuel!")}>My hobby is art
+            </Person>
+
+          </div> : null
+        }
+
       </div>
     );
   }
